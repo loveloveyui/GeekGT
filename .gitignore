@@ -1,0 +1,7 @@
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+GeekGT.trime.yaml
+GeekGT.trime.custom.yaml
