@@ -11,3 +11,4 @@
 ## 3. 主题文件维护分工
 * `GeekGT.trime.yaml`、`GeekGT.trime.custom.yaml`：原始基准文件，保持只读参考。
 * `GeekGT_Apples.trime.yaml`：当前主力发布/开发版本（`GeekGT_<版本代号>.trime.yaml`）。
+* **B 版**：指代 `GeekGT_Bravo.trime.yaml`（无 ESC 行）与 `GeekGT_Butter.trime.yaml`（含 ESC 行），作为主力迭代版本；`Apples` 与 `Alpha` 保持冻结不变。
