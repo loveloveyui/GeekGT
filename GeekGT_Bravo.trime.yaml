@@ -40,7 +40,7 @@ style:
   latin_font: latin.ttf #西文本体
   keyboard_height: 242 # 扣除ESC行(25)+底部留白(8)，保持前四行单键高度一致
   keyboard_height_land: 200 #锁定横屏下键盘高度，避免切换时键盘高度变化而造成闪烁
-  keyboard_padding_bottom: 0 # 融合自 custom.yaml（原 35）
+  keyboard_padding_bottom: 7 # 键盘底部距屏幕底部的留白高度(dp)，可根据手感自行微调
   keyboard_padding: 4
   key_symbol_offset_x: 10
   popup_font: [LXGWWenKai-Medium.ttf] #按键提示字体
