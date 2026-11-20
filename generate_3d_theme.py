@@ -341,7 +341,7 @@ def main() -> None:
     parser.add_argument("--shadow-depth", type=float, default=2.2, help="底部立体阴影厚度 (px，默认 2.2 为原版一半)")
     parser.add_argument("--light-shadow-alpha", type=float, default=0.17, help="亮色方案底部阴影透明度 (0.0~1.0)")
     parser.add_argument("--dark-shadow-alpha", type=float, default=0.50, help="暗色方案底部阴影透明度 (0.0~1.0)")
-    parser.add_argument("--light-highlight", type=float, default=0.78, help="亮色方案顶部内高光强度 (0.0~1.0)")
+    parser.add_argument("--light-highlight", type=float, default=0.0, help="亮色方案顶部内高光强度 (0.0~1.0)")
     parser.add_argument("--dark-highlight", type=float, default=0.15, help="暗色方案顶部内高光强度 (0.0~1.0)")
     parser.add_argument("--radius", type=float, default=22.0, help="普通按键圆角半径 (px，3x密度下约 7dp)")
     parser.add_argument("--pill-radius", type=float, default=56.0, help="左下?123与右下回车大圆角半径 (px，默认56大圆角矩形感)")
