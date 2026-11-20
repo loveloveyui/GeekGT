@@ -772,7 +772,7 @@ preset_keyboards:
       
      # 第四行（句号吸收ESC宽度，空格40保持居中）
       - {click: Keyboard_number, label: '?123', long_click: 'liquid_keyboard_default', composing: , label_symbol: 'ic@symbol', symbol_text_size: 14, key_symbol_offset_x: 15, key_symbol_offset_y: -47, swipe_up: 'liquid_keyboard_default', key_text_size: "14", key_back_color: c3, key_text_color: th4, width: 15, round_corner: 24}
-      - {width: 15, click: Control_L, popup: ['Theme_settings', 'Color_switch', 'Menu', 'IME_switch'], label_symbol: 'ic@palette-outline', key_symbol_offset_y: -47, key_text_size: "14", key_back_color: c5, key_text_color: th4}
+      - {width: 15, click: Control_L, popup: ['Theme_settings', 'Color_switch', 'Menu', 'IME_switch', 'ToggleAllHints'], label_symbol: 'ic@palette-outline', key_symbol_offset_y: -47, key_text_size: "14", key_back_color: c5, key_text_color: th4}
       # - {width: 10.75, click: Alt_L, popup: ['Theme_settings','Color_switch'],label_symbol: 'ic@keyboard-settings-outline', key_symbol_offset_y: -47, swipe_up: 'Theme_settings', swipe_down: 'Color_switch',key_back_color: c5, key_text_color: th4}
       - {click: space4, label_symbol: "ic@microphone-outline", key_symbol_offset_y: -47, ascii: space3, swipe_up: 'Mode_switch', swipe_down: 'Mode_switch', long_click: "VOICE_ASSIST", key_text_size: "12", symbol_text_size: 9, key_symbol_offset_x: 35, key_back_color: bkg, key_text_color: th1, width: 40}
       - {width: 10, click: '.', label: '。', label_symbol: ',', swipe_up: ',', popup: ["eju","6sl", "3sl", "·", "•", "●", "・"], key_back_color: juhao, key_text_color: th4, key_symbol_color: th4}
@@ -1192,3 +1192,8 @@ preset_keys:
       8. 长按数字键盘按钮是符号键盘
       9. 长按 Ctrl 弹出各种切换菜单
       10. 长按句号发送各种“点”，上滑发送逗号
+
+  # 一键切换隐藏/显示所有按键上下角标
+  ToggleSymbol: { label: '上标', send: FUNCTION, command: switch_hide_key_symbol }
+  ToggleHint: { label: '下标', send: FUNCTION, command: switch_hide_key_hint }
+  ToggleAllHints: { label: '²', text: '{ToggleSymbol}{ToggleHint}' }
