@@ -98,6 +98,7 @@ def generate_9patch_key(
     shadow_depth: float,
     shadow_alpha: float,
     radius: float,
+    top_highlight: float = 0.0,
     pill: bool = False,
     pressed: bool = False,
 ) -> None:
@@ -156,18 +157,19 @@ def generate_9patch_key(
             a_body = max(0.0, min(1.0, 0.5 - d_body))
             if a_body > 0.0:
                 col = blend_over(col, (br, bg, bb, a_body))
-                edge = max(0.0, min(1.0, 1.0 - abs(d_body + 0.5)))
-                if edge > 0.0:
-                    factor = 1.0 if not is_dark else max(0.0, 1.0 - (py - body_y0) / 18.0)
-                    col = blend_over(
-                        col,
-                        (
-                            border_rgba[0],
-                            border_rgba[1],
-                            border_rgba[2],
-                            border_rgba[3] * edge * factor * a_body,
-                        ),
-                    )
+                # 极克制的键帽轮廓
+                if not is_dark:
+                    edge = max(0.0, min(1.0, 1.0 - abs(d_body + 0.5)))
+                    if edge > 0.0:
+                        col = blend_over(
+                            col, (border_rgba[0], border_rgba[1], border_rgba[2], border_rgba[3] * edge * a_body)
+                        )
+                # 顶部内缘细微弧形高光（常态显示，按下态自动关闭增强按压下陷感）
+                if not pressed and top_highlight > 0.0:
+                    d_inner = sdf_round_rect(px, py, pad_x, body_y0 + 1.8, iw - pad_x, body_y1, radius)
+                    hl_mask = max(0.0, min(1.0, d_inner + 0.5)) * max(0.0, 1.0 - (py - body_y0) / 22.0)
+                    if hl_mask > 0.0:
+                        col = blend_over(col, (1.0, 1.0, 1.0, top_highlight * hl_mask * a_body))
 
             idx = ((y + 1) * w + (x + 1)) * 4
             pixels[idx] = int(round(col[0] * 255))
@@ -196,26 +198,27 @@ def build_textures(args: argparse.Namespace, base_dir: Path, bravo_data: dict) -
     count = 0
     for prefix, sch, is_dark in [("l", light_sch, False), ("d", dark_sch, True)]:
         s_alpha = args.dark_shadow_alpha if is_dark else args.light_shadow_alpha
+        t_hl = args.dark_highlight if is_dark else args.light_highlight
         # 字母/数字区键帽：默认统一为数字1(gd00)纯色；传 --gradient 时生成16级对角渐变
         if args.gradient:
             for i in range(16):
                 k = f"gd{i:02d}"
                 generate_9patch_key(
-                    bg_dir / f"{prefix}_{k}.9.png", sch[k], is_dark, args.shadow_depth, s_alpha, args.radius
+                    bg_dir / f"{prefix}_{k}.9.png", sch[k], is_dark, args.shadow_depth, s_alpha, args.radius, top_highlight=t_hl
                 )
                 count += 1
         else:
             generate_9patch_key(
-                bg_dir / f"{prefix}_gd00.9.png", sch["gd00"], is_dark, args.shadow_depth, s_alpha, args.radius
+                bg_dir / f"{prefix}_gd00.9.png", sch["gd00"], is_dark, args.shadow_depth, s_alpha, args.radius, top_highlight=t_hl
             )
             count += 1
         # 常规圆角中性色键（彩色按键 c1/c2/c3/c5/benter/red 保持原版纯色扁平）
         for k in ("bkg", "juhao"):
             generate_9patch_key(
-                bg_dir / f"{prefix}_{k}.9.png", sch[k], is_dark, args.shadow_depth, s_alpha, args.radius
+                bg_dir / f"{prefix}_{k}.9.png", sch[k], is_dark, args.shadow_depth, s_alpha, args.radius, top_highlight=t_hl
             )
             count += 1
-        # 按下态下沉贴图
+        # 按下态下沉贴图（无顶部高光）
         pressed_hex = 0xFFD0D0D0 if not is_dark else 0xFF454545
         generate_9patch_key(
             bg_dir / f"{prefix}_pressed.9.png",
@@ -224,6 +227,7 @@ def build_textures(args: argparse.Namespace, base_dir: Path, bravo_data: dict) -
             args.shadow_depth,
             s_alpha,
             args.radius,
+            top_highlight=0.0,
             pressed=True,
         )
         count += 1
@@ -337,6 +341,8 @@ def main() -> None:
     parser.add_argument("--shadow-depth", type=float, default=2.2, help="底部立体阴影厚度 (px，默认 2.2 为原版一半)")
     parser.add_argument("--light-shadow-alpha", type=float, default=0.17, help="亮色方案底部阴影透明度 (0.0~1.0)")
     parser.add_argument("--dark-shadow-alpha", type=float, default=0.50, help="暗色方案底部阴影透明度 (0.0~1.0)")
+    parser.add_argument("--light-highlight", type=float, default=0.78, help="亮色方案顶部内高光强度 (0.0~1.0)")
+    parser.add_argument("--dark-highlight", type=float, default=0.15, help="暗色方案顶部内高光强度 (0.0~1.0)")
     parser.add_argument("--radius", type=float, default=22.0, help="普通按键圆角半径 (px，3x密度下约 7dp)")
     parser.add_argument("--pill-radius", type=float, default=56.0, help="左下?123与右下回车大圆角半径 (px，默认56大圆角矩形感)")
     parser.add_argument("--gradient", action="store_true", help="启用16级对角渐变贴图（默认关闭，所有字母与数字键统一为数字1键颜色）")
