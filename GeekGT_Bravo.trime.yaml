@@ -760,14 +760,14 @@ preset_keyboards:
       
       #  第三行
       - {width: 15, click: Shift_L, long_click: 'Shift_L', label_symbol: ' ', composing: Tab1, hilited_key_back_color: benter, key_back_color: c1, key_text_color: th1}
-      - {width: 10, click: z, popup: ["Z"], label_symbol: '`', swipe_up: '`', hint: 'ic@checkbox-marked-outline', swipe_down: 'select_all', symbol_text_size: "10", key_hint_offset_y: 0, key_back_color: gd10, key_text_color: th3}
+      - {width: 10, click: z, popup: ["Z"], label_symbol: '`', swipe_up: '`', hint: 'ic@checkbox-marked-outline', swipe_down: 'select_all', symbol_text_size: "8", key_hint_offset_y: 0, key_back_color: gd10, key_text_color: th3}
       - {width: 10, click: x, popup: ["X", "F11-p"], label_symbol: 'F11', swipe_up: 'F11', hint: 'ic@content-cut', swipe_down: 'cut', symbol_text_size: "8", key_hint_offset_y: 0, key_back_color: gd11, key_text_color: th3}
       - {width: 10, click: c, popup: ["C", "F12-p", "©", "℃","💧","🌡"], label_symbol: 'F12', swipe_up: 'F12', hint: 'ic@checkbox-multiple-blank-outline', swipe_down: 'copy', symbol_text_size: "8", key_hint_offset_y: 0, key_back_color: gd11, key_text_color: th3}
       - {width: 10, click: v, popup: ["V", "↹"], label_symbol: '↹', swipe_up: select_line, swipe_left: select_left, swipe_right: select_right, hint: 'ic@clipboard-text-outline', swipe_down: 'paste_clip', symbol_text_size: "8", key_hint_offset_y: 0, key_back_color: gd12, key_text_color: th3}
       - {width: 10, click: b, popup: ["B", "⇟", "⇞"], label_symbol: '⇞', swipe_up: "Page_Up", hint: '⇟', swipe_down: 'Page_Down', swipe_left: 'Home', swipe_right: 'End', key_back_color: gd13, key_text_color: th3, key_symbol_offset_y: -2}
       - {width: 10, click: n, popup: ["N", "↑", "↓", "←", "→"], label_symbol: '↑', swipe_up: 'Up', hint: '↓', swipe_down: 'Down', swipe_left: 'Left', swipe_right: 'Right', key_back_color: gd14, key_text_color: th3}
       - {width: 10, click: m, popup: ["M", "¿","?",";",":"], label_symbol: '?', swipe_left: ':', swipe_up: '?' ,hint: ':        ;         ', swipe_down: ";", key_back_color: gd15, key_text_color: th3}
-      - {width: 15, click: BackSpace, repeatable: true , swipe_up: ClearAll , swipe_down: Delete1 , key_back_color: c2 , key_text_color: th1}
+      - {width: 15, click: BackSpace, repeatable: true , swipe_up: ClearAll , swipe_down: Escape1 , key_back_color: c2 , key_text_color: th1}
       
       
      # 第四行（句号吸收ESC宽度，空格40保持居中）
